@@ -116,7 +116,7 @@ class StewartFilmscreenClient:
                     await self._writer.drain()
 
                 if data_str == PROMPT_CONNECTED:
-                    log.debug("Received conneted prompt.")
+                    log.debug("Received connected prompt.")
                     await self._reader.readuntil(b"\r\n")
                     return True
 
