@@ -45,7 +45,7 @@ class StewartFilmscreenClient:
             self._connected = True
         else:
             return False
-
+        
         await self._async_start_services()
 
         return True
@@ -96,6 +96,7 @@ class StewartFilmscreenClient:
         self._reader, self._writer = await telnetlib3.open_connection(
             self._host, self._port
         )
+        
         return await self._async_authenticate()
 
     async def _async_authenticate(self):
@@ -117,7 +118,6 @@ class StewartFilmscreenClient:
 
                 if data_str == PROMPT_CONNECTED:
                     log.debug("Received connected prompt.")
-                    await self._reader.readuntil(b"\r\n")
                     return True
 
             except Exception as error:
