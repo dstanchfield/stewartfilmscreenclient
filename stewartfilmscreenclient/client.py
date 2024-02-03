@@ -6,7 +6,6 @@ import telnetlib3
 
 from .protocol import StewartFilmscreenProtocol
 
-logging.basicConfig(level=logging.DEBUG)
 log = logging.getLogger(__name__)
 
 PROMPT_USERNAME = "User:"
@@ -107,14 +106,17 @@ class StewartFilmscreenClient:
                 data_str = data.decode("utf-8")
 
                 if data_str == PROMPT_USERNAME:
+                    log.debug("Received user prompt.")
                     self._writer.write(self._username + "\r\n")
                     await self._writer.drain()
 
                 if data_str == PROMPT_PASSWORD:
+                    log.debug("Received prompt prompt.")
                     self._writer.write(self._password + "\r\n")
                     await self._writer.drain()
 
                 if data_str == PROMPT_CONNECTED:
+                    log.debug("Received conneted prompt.")
                     await self._reader.readuntil(b"\r\n")
                     return True
 
